@@ -50,8 +50,8 @@ int main()
 	mat4 view = glm::lookAt(vec3(10, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
 	mat4 projection = glm::perspective(glm::radians(55.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 
-	float cameraX = -6.0f;
-	float cameraZ = -6.0f;
+	float cameraX = -10.0f;
+	float cameraZ = -10.0f;
 
 	float timer = 0.0f;
 
@@ -92,7 +92,7 @@ int main()
 
 		mat4 oPlanet_one_transform = rotation_matrix * glm::translate(vec3(3, 0, 0)) * glm::rotate(timer * 3, vec3(0, 3, 0));
 		mat4 oPlanet_two_transform = rotation_matrix * glm::translate(vec3(4.2f, 0, 0)) * glm::rotate(timer * 5, vec3(0, 2, 0));
-		mat4 oPlanet_three_transform = (rotation_matrix * glm::translate(vec3(6.2f, 0, 0)) * glm::rotate(timer, vec3(0, 1, 0));
+		mat4 oPlanet_three_transform = rotation_matrix * glm::translate(vec3(6.2f, 0, 0)) * glm::rotate(timer, vec3(0, 1, 0));
 
 		mat4 oMoon_one_transform = oPlanet_one_transform * glm::translate(vec3(1.5f, 0, 0));
 
