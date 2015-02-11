@@ -1,8 +1,13 @@
 #include "FlyCamera.h"
 
-FlyCamera::FlyCamera(float a_fAspect, float a_fSpeed)
+FlyCamera::FlyCamera()
 {
-	
+
+}
+
+FlyCamera::FlyCamera(float a_fAspect, float a_fNewSpeed) : Camera(a_fAspect)
+{
+	this->m_fSpeed = a_fNewSpeed;
 }
 
 void FlyCamera::Update(float a_fDeltaTime)
@@ -11,7 +16,7 @@ void FlyCamera::Update(float a_fDeltaTime)
 
 	if (glfwGetKey(currentWindow, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		worldTransform[3] += worldTransform[2] * m_fSpeed * a_fDeltaTime;
+		worldTransform[3] -= worldTransform[2] * m_fSpeed * a_fDeltaTime;
 	}
 
 	if (glfwGetKey(currentWindow, GLFW_KEY_S) == GLFW_PRESS)
@@ -21,7 +26,7 @@ void FlyCamera::Update(float a_fDeltaTime)
 
 	if (glfwGetKey(currentWindow, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		worldTransform[3] -= worldTransform[2] * m_fSpeed * a_fDeltaTime;
+		worldTransform[3] -= worldTransform[0] * m_fSpeed * a_fDeltaTime;
 	}
 
 	if (glfwGetKey(currentWindow, GLFW_KEY_D) == GLFW_PRESS)
@@ -46,13 +51,13 @@ void FlyCamera::Update(float a_fDeltaTime)
 	glfwSetCursorPos(currentWindow, 1280.f / 2.f, 720.f / 2.f);
 
 	x_delta -= (1280.f / 2.f);
-	y_delta -= (1280.f / 2.f);
+	y_delta -= (720.f / 2.f);
 
 	x_delta /= (1280.f / 2.f);
-	y_delta /= (1280.f / 2.f);
+	y_delta /= (720.f / 2.f);
 
-	// x_delta *= m_sensitivity;
-	// y_delta *= m_sensitivity;
+	x_delta *= -m_fSensitivity;
+	y_delta *= -m_fSensitivity;
 
 	if (glfwGetMouseButton(currentWindow, 1))
 	{

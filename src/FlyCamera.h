@@ -6,15 +6,12 @@
 class FlyCamera : public Camera
 {
 public:
+	FlyCamera();
 	FlyCamera (float a_fAspect, float a_fSpeed);
-
 	virtual void Update(float a_fDeltaTime);
 
-	void SetSpeed (float a_fSpeed);
-
 	float m_fSpeed;
-
-	vec3 m_vUp;
+	float m_fSensitivity;
 };
 
 #endif

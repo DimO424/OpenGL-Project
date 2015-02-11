@@ -1,15 +1,5 @@
 #include "CameraAndProjection.h"
 
-CameraAndProjection::CameraAndProjection()
-{
-
-}
-
-CameraAndProjection:: ~CameraAndProjection()
-{
-
-}
-
 bool CameraAndProjection::Startup()
 {
 	if (Application::Startup() == false)
@@ -22,14 +12,17 @@ bool CameraAndProjection::Startup()
 
 	Gizmos::create();
 
+	m_Camera = FlyCamera(1280.0f / 720.0f, 10.0f);
+	m_Camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
+	m_Camera.m_fSensitivity = 3;
+
 	return true;
 }
 
 void CameraAndProjection::Shutdown()
 {
-	Application::Shutdown();
-
 	Gizmos::destroy();
+	Application::Shutdown();
 }
 
 bool CameraAndProjection::Update()
@@ -42,14 +35,26 @@ bool CameraAndProjection::Update()
 	float dt = (float)glfwGetTime();
 	glfwSetTime(0.0f);
 
-	// Gizmos::draw(m_projection, m_view);
-	return Application::Update();
+	vec4 white(1);
+	vec4 black(0, 0, 0, 1);
 
+	for (int i = 0; i <= 20; ++i)
+	{
+		Gizmos::addLine(vec3(-10 + i, 0.01f, -10), vec3(-10 + i, -0.01f, 10),
+				i == 10 ? white : black);
+		Gizmos::addLine(vec3(-10, -0.01f, -10 + i), vec3(10, -0.01f, -10 +i), 
+				i ==10 ? white : black);
+	}
+
+	m_Camera.Update(dt);
+
+	return true;
 }
 
 void CameraAndProjection::Draw()
 {
-	// Gizmos::draw(m_projection, m_view);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	Gizmos::draw(m_Camera.projectionTransform, m_Camera.viewTransform);
 
 	glfwSwapBuffers(this->m_pWindow);
 	glfwPollEvents();

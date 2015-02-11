@@ -1,14 +1,17 @@
 #include "Camera.h"
+#include "GLFW/glfw3.h"
 
-Camera:: Camera()
+Camera::Camera()
 {
 
 }
 
-Camera:: Camera(vec3 pos, vec3 lookAt, float near, float far, float aspect)
+Camera::Camera(float aspect)
 {
-	viewTransform = glm::lookAt(vec3(10, 10, 10), vec3(0, 0, 0), vec3(0, 1, 0));
-	projectionTransform = glm::perspective(glm::radians(55.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
+	viewTransform = glm::lookAt(vec3(0, 0, 0), vec3(0, 0, 1), vec3(0, 1, 0));
+	worldTransform = glm::inverse(viewTransform);
+	projectionTransform = glm::perspective(glm::radians(60.0f), aspect, 0.1f, 1000.0f);
+	view_Projection = projectionTransform * viewTransform;
 }
 
 void Camera::UpdateViewProjection()
@@ -16,12 +19,22 @@ void Camera::UpdateViewProjection()
 	view_Projection = projectionTransform * viewTransform;
 }
 
-void Camera:: SetPerspective(float a_fFieldOfView, float a_fAspectRatio, float a_fnear, float a_fFar)
+void Camera::SetPosition(vec3 a_vPos)
 {
-
+	worldTransform[3] = vec4(a_vPos, 1);
+	viewTransform = glm::inverse(worldTransform);
+	UpdateViewProjection();
 }
 
-void Camera::SetLookAt(vec3 a_vFrom, vec3 a_vTo, vec3 a_vUp)
+void Camera::SetPerspective(float a_fFieldOfView, float a_fAspectRatio, float a_fnear, float a_fFar)
 {
+	projectionTransform = glm::perspective(a_fFieldOfView, a_fAspectRatio, a_fnear, a_fFar);
+	UpdateViewProjection();
+}
 
+void Camera::SetLookAt(vec3 a_vPosition, vec3 a_vCenter, vec3 a_vUp)
+{
+	viewTransform = glm::lookAt(a_vPosition, a_vCenter, a_vUp);
+	worldTransform = glm::inverse(viewTransform);
+	UpdateViewProjection();
 }

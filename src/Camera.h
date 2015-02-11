@@ -16,11 +16,15 @@ class Camera
 {
 public:
 	Camera();
-	Camera(vec3 pos, vec3 lookAt, float near, float far, float aspect);
-	virtual void Update() = 0;
+	Camera(float aspect);
+
 	void UpdateViewProjection();
+	void SetPosition(vec3 a_vPos);
+	
 	void SetPerspective(float a_fFieldOfView, float a_fAspectRatio, float a_fnear, float a_fFar);
-	void SetLookAt(vec3 a_vFrom, vec3 a_vTo, vec3 a_vUp);
+	void SetLookAt(vec3 a_vPosition, vec3 a_vCenter, vec3 a_vUp);
+
+	virtual void Update(float a_fDeltaTime) = 0;
 
 	mat4 worldTransform;
 	mat4 viewTransform;

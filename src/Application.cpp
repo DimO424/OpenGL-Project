@@ -20,19 +20,18 @@ bool Application::Startup()
 		return false;
 	}
 
-	this->m_pWindow = glfwCreateWindow(1280, 720,
-		"Computer Graphics", nullptr, nullptr);
+	this -> m_pWindow = glfwCreateWindow(1280, 720, "Computer Graphics", nullptr, nullptr);
 
-	if (this->m_pWindow == nullptr)
+	if (this -> m_pWindow == nullptr)
 	{
 		return false;
 	}
 
-	glfwMakeContextCurrent(this->m_pWindow);
+	glfwMakeContextCurrent(this -> m_pWindow);
 
 	if (ogl_LoadFunctions() == ogl_LOAD_FAILED)
 	{
-		glfwDestroyWindow(this->m_pWindow);
+		glfwDestroyWindow(this -> m_pWindow);
 		glfwTerminate();
 		return false;
 	}
@@ -58,10 +57,8 @@ bool Application::Update()
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
+
+	return true;
 }
 
 void Application::Draw()
