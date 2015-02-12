@@ -7,7 +7,7 @@ FlyCamera::FlyCamera()
 
 FlyCamera::FlyCamera(float a_fAspect, float a_fNewSpeed) : Camera(a_fAspect)
 {
-	this->m_fSpeed = a_fNewSpeed;
+	this -> m_fSpeed = a_fNewSpeed;
 }
 
 void FlyCamera::Update(float a_fDeltaTime)

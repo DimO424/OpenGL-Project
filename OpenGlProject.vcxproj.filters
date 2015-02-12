@@ -51,6 +51,9 @@
     <ClCompile Include="src\Utility.cpp">
       <Filter>Source Files\RenderingGeometry</Filter>
     </ClCompile>
+    <ClCompile Include="src\Texturing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -86,5 +89,19 @@
     <ClInclude Include="src\Utility.h">
       <Filter>Header Files\RenderingGeometry</Filter>
     </ClInclude>
+    <ClInclude Include="src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texturing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\TextureVertex.glsl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="data\TextureFragment.glsl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

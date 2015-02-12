@@ -9,4 +9,10 @@ struct Vertex
 	vec4 color;
 };
 
+struct VertexTexCoord
+{
+	vec4 position;
+	vec2 tex_coord;
+};
+
 #endif
