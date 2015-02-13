@@ -10,7 +10,7 @@ FlyCamera::FlyCamera(float a_fAspect, float a_fNewSpeed) : Camera(a_fAspect)
 	this -> m_fSpeed = a_fNewSpeed;
 }
 
-void FlyCamera::Update(float a_fDeltaTime)
+bool FlyCamera::Update(float a_fDeltaTime)
 {
 	GLFWwindow* currentWindow = glfwGetCurrentContext();
 
@@ -74,4 +74,6 @@ void FlyCamera::Update(float a_fDeltaTime)
 
 	viewTransform = glm::inverse(worldTransform);
 	UpdateViewProjection();
+
+	return true;
 }

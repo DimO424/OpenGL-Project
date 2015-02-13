@@ -1,10 +1,12 @@
 #include "IntroToOpenGl.h"
 #include "CameraAndProjection.h"
 #include "RenderingGeometryh.h"
+#include "Texturing.h"
+#include "Lighting.h"
 
 int main()
 {
-	RenderingGeometry application;
+	Lighting application;
 
 	if (application.Startup() == false)
 	{

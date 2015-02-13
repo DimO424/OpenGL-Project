@@ -24,7 +24,7 @@ public:
 	void SetPerspective(float a_fFieldOfView, float a_fAspectRatio, float a_fnear, float a_fFar);
 	void SetLookAt(vec3 a_vPosition, vec3 a_vCenter, vec3 a_vUp);
 
-	virtual void Update(float a_fDeltaTime) = 0;
+	virtual bool Update(float a_fDeltaTime) = 0;
 
 	mat4 worldTransform;
 	mat4 viewTransform;

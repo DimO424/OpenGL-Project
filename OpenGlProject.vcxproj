@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./deps/glfw/include;./deps/glm;$(IncludePath)</IncludePath>
-    <LibraryPath>./deps/glfw/lib-vc2013;$(LibraryPath)</LibraryPath>
+    <IncludePath>./deps/glfw/include;./deps/glm;$(IncludePath);$(IncludePath)</IncludePath>
+    <LibraryPath>./deps/glfw/lib-vc2013;$(LibraryPath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>./deps/glfw/include;./deps/glm;$(IncludePath)</IncludePath>
-    <LibraryPath>./deps/glfw/lib-vc2013;$(LibraryPath)</LibraryPath>
+    <IncludePath>./deps/glfw/include;./deps/glm;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(IncludePath)</IncludePath>
+    <LibraryPath>./deps/glfw/lib-vc2013;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AdvancedTexturing.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CameraAndProjection.cpp" />
@@ -91,12 +92,15 @@
     <ClCompile Include="src\Gizmos.cpp" />
     <ClCompile Include="src\gl_core_4_4.c" />
     <ClCompile Include="src\IntroToOpenGl.cpp" />
+    <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\RenderingGeometry.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
+    <ClCompile Include="src\tiny_obj_loader.cc" />
     <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdvancedTexturing.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CameraAndProjection.h" />
@@ -105,15 +109,21 @@
     <ClInclude Include="src\GLMHeader.h" />
     <ClInclude Include="src\gl_core_4_4.h" />
     <ClInclude Include="src\IntroToOpenGl.h" />
+    <ClInclude Include="src\Lighting.h" />
     <ClInclude Include="src\RenderingGeometryh.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texturing.h" />
+    <ClInclude Include="src\tiny_obj_loader.h" />
     <ClInclude Include="src\Utility.h" />
     <ClInclude Include="src\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\TextureFragment.glsl" />
-    <None Include="data\TextureVertex.glsl" />
+    <None Include="data\Shaders\LightingFragment.glsl" />
+    <None Include="data\Shaders\LightingVertex.glsl" />
+    <None Include="data\Shaders\RenderingGeometryFragment.glsl" />
+    <None Include="data\Shaders\RenderingGeometryVertex.glsl" />
+    <None Include="data\Shaders\TextureFragment.glsl" />
+    <None Include="data\Shaders\TextureVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

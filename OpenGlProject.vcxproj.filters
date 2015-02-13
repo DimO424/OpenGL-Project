@@ -19,6 +19,12 @@
     <Filter Include="Source Files\RenderingGeometry">
       <UniqueIdentifier>{981a88a3-d3b7-4ec8-b425-93c25d50df02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AdvancedTexturing">
+      <UniqueIdentifier>{d7951a63-67ce-44e7-ac12-b9dfe1ae6e4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AdvancedTexturing">
+      <UniqueIdentifier>{dcabbd14-3c12-4272-b29f-8364749e1e57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -53,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="src\Texturing.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lighting.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiny_obj_loader.cc">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AdvancedTexturing.cpp">
+      <Filter>Source Files\AdvancedTexturing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,13 +110,30 @@
     <ClInclude Include="src\Texturing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lighting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedTexturing.h">
+      <Filter>Header Files\AdvancedTexturing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\TextureVertex.glsl">
+    <None Include="data\Shaders\LightingVertex.glsl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="data\TextureFragment.glsl">
+    <None Include="data\Shaders\TextureFragment.glsl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="data\Shaders\TextureVertex.glsl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="data\Shaders\LightingFragment.glsl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="data\Shaders\RenderingGeometryFragment.glsl" />
+    <None Include="data\Shaders\RenderingGeometryVertex.glsl" />
   </ItemGroup>
 </Project>

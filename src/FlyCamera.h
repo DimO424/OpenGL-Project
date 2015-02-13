@@ -8,7 +8,7 @@ class FlyCamera : public Camera
 public:
 	FlyCamera();
 	FlyCamera (float a_fAspect, float a_fSpeed);
-	virtual void Update(float a_fDeltaTime);
+	virtual bool Update(float a_fDeltaTime);
 
 	float m_fSpeed;
 	float m_fSensitivity;

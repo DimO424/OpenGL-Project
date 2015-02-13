@@ -10,7 +10,7 @@ bool RenderingGeometry::Startup()
 	}
 
 	GenerateShader();
-	GenerateGrid(10, 10);
+	GenerateGrid(20, 20);
 
 	Gizmos::create();
 
@@ -50,7 +50,7 @@ void RenderingGeometry::Draw()
 
 	glUseProgram(m_programID);
 
-	int projection_view_handle = glGetUniformLocation(m_programID, "projectionView");
+	int projection_view_handle = glGetUniformLocation(m_programID, "projection_View");
 
 	if (projection_view_handle >= 0)
 	{
@@ -130,7 +130,6 @@ void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
 
 	delete[] vertex_array;
 	delete[] index_array;
-	
 }
 
 void RenderingGeometry::GenerateShader()

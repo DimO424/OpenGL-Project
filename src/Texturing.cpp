@@ -25,9 +25,12 @@ bool Texturing::Startup()
 		return false;
 	}
 
-	LoadTexture("./textures/crate.png");
+	Gizmos::create();
+
+	LoadTexture("./data/textures/crate.png");
+	LoadShader("./data/shaders/TextureVertex.glsl", "./shaders/TextureFragment.glsl", &m_program_id);
 	GenerateQuad(5.0f);
-	LoadShader("Shaders", );
+	
 
 	m_camera = FlyCamera(60.0f, 10.0f);
 	m_camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));

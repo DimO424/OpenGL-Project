@@ -8,7 +8,6 @@
 class RenderingGeometry : public Application
 {
 public:
-
 	virtual bool Startup();
 	virtual void Shutdown();
 

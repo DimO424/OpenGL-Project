@@ -11,6 +11,7 @@ bool CameraAndProjection::Startup()
 	glEnable(GL_DEPTH_TEST);
 
 	Gizmos::create();
+	glfwSetTime(0.0f);
 
 	m_Camera = FlyCamera(1280.0f / 720.0f, 10.0f);
 	m_Camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
