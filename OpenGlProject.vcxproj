@@ -41,13 +41,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./deps/glfw/include;./deps/glm;$(IncludePath);$(IncludePath)</IncludePath>
-    <LibraryPath>./deps/glfw/lib-vc2013;$(LibraryPath);$(LibraryPath)</LibraryPath>
+    <IncludePath>./deps/glfw/include;./deps/glm;./deps/AntTweakBar;$(IncludePath);./deps/AnTweakBar/include;./deps/AntTweakBar/include</IncludePath>
+    <LibraryPath>./deps/glfw/lib-vc2013;./deps/AnTweakBar/lib;$(LibraryPath);./deps/AnTweakBar/lib;./deps/AntTweakBar/lib;./deps/AntTweakBar/lib</LibraryPath>
+    <OutDir>$(SolutionDir)build\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>./deps/glfw/include;./deps/glm;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(IncludePath)</IncludePath>
-    <LibraryPath>./deps/glfw/lib-vc2013;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(LibraryPath)</LibraryPath>
+    <IncludePath>./deps/glfw/include;./deps/glm;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(IncludePath);./deps/AnTweakBar/include;./deps/AntTweakBar/include</IncludePath>
+    <LibraryPath>./deps/glfw/lib-vc2013;C:\Users\dmitri.davidov\Documents\OpenGL-Project\deps\FBXLoader;;./deps/FBXLoader;$(IncludePath);$(LibraryPath);./deps/AnTweakBar/lib;./deps/AntTweakBar/lib;./deps/AntTweakBar/lib</LibraryPath>
+    <OutDir>$(SolutionDir)build\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -61,7 +63,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies);AntTweakBar.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,7 +82,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies);AntTweakBar.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -94,13 +96,15 @@
     <ClCompile Include="src\IntroToOpenGl.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Quaternions.cpp" />
     <ClCompile Include="src\RenderingGeometry.cpp" />
     <ClCompile Include="src\Texturing.cpp" />
     <ClCompile Include="src\tiny_obj_loader.cc" />
     <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdvancedTexturing.h" />
+    <ClInclude Include="deps\AntTweakBar\include\AntTweakBar.h" />
+    <ClInclude Include="src\AdvancedTexturing.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CameraAndProjection.h" />
@@ -110,6 +114,7 @@
     <ClInclude Include="src\gl_core_4_4.h" />
     <ClInclude Include="src\IntroToOpenGl.h" />
     <ClInclude Include="src\Lighting.h" />
+    <ClInclude Include="src\Quaternions.h" />
     <ClInclude Include="src\RenderingGeometryh.h" />
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texturing.h" />

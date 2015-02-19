@@ -63,5 +63,6 @@ bool Application::Update()
 
 void Application::Draw()
 {
-
+	glfwSwapBuffers(m_pWindow);
+	glfwPollEvents();
 }

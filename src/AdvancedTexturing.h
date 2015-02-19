@@ -32,8 +32,6 @@ public:
 	vec3 m_lightColor;
 	vec3 m_ambientLight;
 	float m_specularPower;
-
-	TwBar* m_bar;
 };
 
 #endif

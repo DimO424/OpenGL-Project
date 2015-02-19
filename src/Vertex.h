@@ -15,4 +15,12 @@ struct VertexTexCoord
 	vec2 tex_coord;
 };
 
+struct VertexNormal
+{
+	vec4 position;
+	vec4 normal;
+	vec4 tangent;
+	vec4 texCoord;
+};
+
 #endif
