@@ -5,8 +5,8 @@
 #include "GLFW/glfw3.h"
 #include <cstdio>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+// #define STB_IMAGE_IMPLEMENTATION
+// #include "stb_image.h"
 
 Texturing::Texturing()
 {
@@ -91,15 +91,15 @@ void Texturing::LoadTexture(const char* a_filename)
 
 	int channels;
 
-	unsigned char* data = stbi_load(a_filename, &width, &height, &channels, STBI_default);
+	// unsigned char* data = stbi_load(a_filename, &width, &height, &channels, STBI_default);
 
 	glGenTextures(1, &m_texture);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	stbi_image_free(data);
+	// stbi_image_free(data);
 }
 
 void Texturing::GenerateQuad(float a_size)

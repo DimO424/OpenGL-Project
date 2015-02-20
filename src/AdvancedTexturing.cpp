@@ -1,6 +1,7 @@
 #include "AdvancedTexturing.h"
 #include "GLMHeader.h"
 #include "Gizmos.h"
+#include "Vertex.h"
 #include "Utility.h"
 
 #define STB_IMAGE_IMPLEMENTAION
@@ -52,8 +53,9 @@ bool AdvancedTexturing::Startup()
 	TwInit(TW_OPENGL_CORE, nullptr);
 	TwWindowSize(1280, 720);
 
-	m_backColor = vec4(0.3f, 0.3f, 0.3f, 1.0f);
+	//m_backColor = vec4(0.3f, 0.3f, 0.3f, 1.0f);
 
+	//Send window size events to AntTweakBar
 	glfwSetMouseButtonCallback(m_pWindow, OnMouseButton);
 	glfwSetCursorPosCallback(m_pWindow, OnMousePosition);
 	glfwSetScrollCallback(m_pWindow, OnMouseScroll);
@@ -61,9 +63,11 @@ bool AdvancedTexturing::Startup()
 	glfwSetCharCallback(m_pWindow, OnChar);
 	glfwSetWindowSizeCallback(m_pWindow, OnWindowResize);
 
-	m_bar = TwNewBar("my awesome bar");
+	// m_bar = TwNewBar("my awesome bar");
 	
-	TwAddVarRW("Clear Color", TW_TYPE_COLOR4F, &m_backColor, "");
+	// TwAddVarRW("Advanced Texturing", TW_TYPE_COLOR4F, &m_backColor, "group = light");
+	// TwAddVarRW("Advanced Texturing", TW_TYPE_COLOR4F, &m_backColor, "group = light");
+	// TwAddVarRW("Advanced Texturing", TW_TYPE_COLOR4F, &m_backColor, "group = light");
 
 	Gizmos::create();
 	glfwSetTime(0.0f);
@@ -157,10 +161,10 @@ void AdvancedTexturing::GenerateQuad(float a_size)
 	vertexData[2].tangent = vec4(1, 0, 0, 0);
 	vertexData[3].tangent = vec4(1, 0, 0, 0);
 
-	vertexData[0].texCoord = vec2(0, 0);
-	vertexData[1].texCoord = vec2(0, 1);
-	vertexData[2].texCoord = vec2(1, 1);
-	vertexData[3].texCoord = vec2(1, 0);
+	// vertexData[0].texCoord = vec2(0, 0);
+	// vertexData[1].texCoord = vec2(0, 1);
+	// vertexData[2].texCoord = vec2(1, 1);
+	// vertexData[3].texCoord = vec2(1, 0);
 
 	unsigned int indexData[6] = { 0, 2, 1,
 								0, 3, 2 };

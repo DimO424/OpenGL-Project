@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "FlyCamera.h"
 #include "Vertex.h"
+#include "Utility.h"
 
 #include "AntTweakBar.h"
 

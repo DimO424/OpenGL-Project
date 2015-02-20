@@ -3,10 +3,11 @@
 #include "RenderingGeometryh.h"
 #include "Texturing.h"
 #include "Lighting.h"
+#include "Animation.h"
 
 int main()
 {
-	Lighting application;
+	Animation application;
 
 	if (application.Startup() == false)
 	{
