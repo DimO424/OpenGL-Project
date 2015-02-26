@@ -4,10 +4,11 @@
 #include "Texturing.h"
 #include "Lighting.h"
 #include "Animation.h"
+#include "Particle.h"
 
 int main()
 {
-	Animation application;
+	Particles application;
 
 	if (application.Startup() == false)
 	{

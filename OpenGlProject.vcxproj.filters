@@ -31,6 +31,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{15789a5c-eaf1-460d-8b3a-a5906c87dfd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{5737a0e4-5f3a-46fb-a2f8-27401256548d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -80,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="src\Animation.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Emitter.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle.cpp">
+      <Filter>Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +152,12 @@
     <ClInclude Include="deps\FBXLoader\FBXFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Emitter.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Particle.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shaders\LightingVertex.glsl">
@@ -161,5 +176,11 @@
     <None Include="data\Shaders\RenderingGeometryVertex.glsl" />
     <None Include="data\Shaders\SkinnedVertex.glsl" />
     <None Include="data\Shaders\SkinnedFragment.glsl" />
+    <None Include="data\Shaders\ParticleVertex.glsl">
+      <Filter>Particles</Filter>
+    </None>
+    <None Include="data\Shaders\ParticleFragment.glsl">
+      <Filter>Particles</Filter>
+    </None>
   </ItemGroup>
 </Project>
