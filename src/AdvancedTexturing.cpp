@@ -73,7 +73,7 @@ bool AdvancedTexturing::Startup()
 	glfwSetTime(0.0f);
 
 	LoadTextures();
-	LoadShader("./shaders/normal_mapped_vertex.glsl", "./shaders/normal_mapped_fragment.glsl", &m_programID);
+	LoadShader("./shaders/normal_mapped_vertex.glsl", 0,  "./shaders/normal_mapped_fragment.glsl", &m_programID);
 	GenerateQuad(5.0f);
 
 	m_Camera = FlyCamera(1280.0f / 720.0f, 10.0f);

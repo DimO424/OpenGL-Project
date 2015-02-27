@@ -28,7 +28,7 @@ bool Texturing::Startup()
 	Gizmos::create();
 
 	LoadTexture("./data/textures/crate.png");
-	LoadShader("./data/shaders/TextureVertex.glsl", "./shaders/TextureFragment.glsl", &m_program_id);
+	LoadShader("./data/shaders/TextureVertex.glsl", 0, "./shaders/TextureFragment.glsl", &m_program_id);
 	GenerateQuad(5.0f);
 	
 

@@ -51,6 +51,7 @@ public:
 
 	float m_emit_rate;
 	float m_emit_timer;
+	float m_print_timer;
 
 	float m_lifespan_min;
 	float m_lifespan_max;

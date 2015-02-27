@@ -1,6 +1,6 @@
-#include "Particle.h"
+#include "GPUParticle.h"
 
-bool Particles::Startup()
+bool GPUParticles::Startup()
 {
 	if (Application::Startup() == false)
 	{
@@ -17,21 +17,30 @@ bool Particles::Startup()
 	m_Camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_Camera.m_fSensitivity = 3;
 
-	LoadShader("./Shaders/ParticleVertex.glsl", 0, "./Shaders/ParticleFragment.glsl", &m_programID);
+	m_emitter.Init(10000,
+		vec4(0, 0, 0, 0),
+		0,
+		5,
+		5,
+		0.8f,
+		1.0f,
+		1,
+		0.01f,
+		vec4(1, 0, 0, 1),
+		vec4(1, 0.4f, 0, 1));
 
-	m_Emitter.Init(20000, vec4(0, 5, 0, 1), 20000, 0.1f, 0.5f, 1, 20, 0.01f, 0.05f, vec4(1, 0.4f, 0, 1),
-						vec4(1, 1, 0.8f, 1));
+	m_time = 0;
 
 	return true;
 }
 
-void Particles::Shutdown()
+void GPUParticles::Shutdown()
 {
 	Gizmos::destroy();
 	Application::Shutdown();
 }
 
-bool Particles::Update()
+bool GPUParticles::Update()
 {
 	if (Application::Update() == false)
 	{
@@ -54,24 +63,15 @@ bool Particles::Update()
 
 	m_Camera.Update(dt);
 
-	m_Emitter.Update(dt);
-	m_Emitter.UpdateVertexData(m_Camera.worldTransform[3].xyz, m_Camera.worldTransform[1].xyz);
-
 	return true;
 }
 
-void Particles::Draw()
+void GPUParticles::Draw()
 {
-	glUseProgram(m_programID);
-
-	int projection_view_uniform = glGetUniformLocation(m_programID, "projection_view");
-
-	glUniformMatrix4fv(projection_view_uniform, 1, GL_FALSE, (float*)&(m_Camera.view_Projection));
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	Gizmos::draw(m_Camera.projectionTransform, m_Camera.viewTransform);
-	m_Emitter.Render();
+
+	m_emitter.Draw(m_time, m_Camera.worldTransform, m_Camera.view_Projection);
 
 	glfwSwapBuffers(this->m_pWindow);
 	glfwPollEvents();

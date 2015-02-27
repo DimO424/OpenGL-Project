@@ -24,7 +24,7 @@ bool Animation::Startup()
 
 	GenerateGLMeshes(m_file);
 
-	LoadShader("./Shaders/SkinnedVertex.glsl", "./Shaders/SkinnedFragment.glsl", &m_programID);
+	LoadShader("./Shaders/SkinnedVertex.glsl", 0, "./Shaders/SkinnedFragment.glsl", &m_programID);
 
 	m_timer = 0;
 
@@ -135,7 +135,7 @@ void Animation::GenerateGLMeshes(FBXFile* a_fbx)
 	unsigned int mesh_count = a_fbx->getMeshCount();
 	m_meshes.resize(mesh_count);
 
-	for (int meshIndex = 0; meshIndex < mesh_count; ++meshIndex)
+	for (unsigned int meshIndex = 0; meshIndex < mesh_count; ++meshIndex)
 	{
 		FBXMeshNode* currMesh = a_fbx->getMeshByIndex(meshIndex);
 

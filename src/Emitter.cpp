@@ -56,7 +56,7 @@ void Emitter::Init(unsigned int a_max_particles, vec4 a_position, float a_emit_r
 	{
 		unsigned int start = 4 * i;
 
-		m_index_data[i * 6 + 0] = start + 0;
+		m_index_data[i * 6] = start;
 		m_index_data[i * 6 + 1] = start + 1;
 		m_index_data[i * 6 + 2] = start + 2;
 
@@ -132,6 +132,16 @@ void Emitter::Update(float a_deltaTime)
 	m_emit_timer += a_deltaTime;
 	EmitParticles();
 
+	//Debug information for FPS and particle count
+	m_print_timer += a_deltaTime;
+
+	if (m_print_timer > 1.0f)
+	{
+		printf("FPS: %f. Particles: %d. \n", 1 / a_deltaTime, m_alive_count);
+		m_print_timer = 0.0f;
+	}
+
+
 	//Move all the alive particles
 	for (unsigned int i = 0; i < m_alive_count; ++i)
 	{
@@ -148,6 +158,8 @@ void Emitter::UpdateVertexData(vec3 a_camera_position, vec3 a_camera_up)
 {
 	for (unsigned int i = 0; i < m_alive_count; ++i)
 	{
+		int itimes4 = i * 4;
+
 		mat4 particle_transform;
 
 		vec3 to = a_camera_position - m_particles[i].position.xyz;
@@ -164,15 +176,15 @@ void Emitter::UpdateVertexData(vec3 a_camera_position, vec3 a_camera_up)
 		particle_transform[2].xyz = forward;
 		particle_transform[3] = m_particles[i].position;
 
-		m_vertex_data[i * 4 + 0].position = particle_transform * vec4(-1, 1, 0, 1);
-		m_vertex_data[i * 4 + 1].position = particle_transform * vec4(-1, -1, 0, 1);
-		m_vertex_data[i * 4 + 2].position = particle_transform * vec4(1, -1, 0, 1);
-		m_vertex_data[i * 4 + 3].position = particle_transform * vec4(1, 1, 0, 1);
+		m_vertex_data[itimes4].position = particle_transform * vec4(-1, 1, 0, 1);
+		m_vertex_data[itimes4 + 1].position = particle_transform * vec4(-1, -1, 0, 1);
+		m_vertex_data[itimes4 + 2].position = particle_transform * vec4(1, -1, 0, 1);
+		m_vertex_data[itimes4 + 3].position = particle_transform * vec4(1, 1, 0, 1);
 
-		m_vertex_data[i * 4 + 0].color = m_particles[i].color;
-		m_vertex_data[i * 4 + 1].color = m_particles[i].color;
-		m_vertex_data[i * 4 + 2].color = m_particles[i].color;
-		m_vertex_data[i * 4 + 3].color = m_particles[i].color;
+		m_vertex_data[itimes4].color = m_particles[i].color;
+		m_vertex_data[itimes4 + 1].color = m_particles[i].color;
+		m_vertex_data[itimes4 + 2].color = m_particles[i].color;
+		m_vertex_data[itimes4 + 3].color = m_particles[i].color;
 	}
 }
 

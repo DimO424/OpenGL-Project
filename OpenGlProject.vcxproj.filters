@@ -34,6 +34,9 @@
     <Filter Include="Particles">
       <UniqueIdentifier>{5737a0e4-5f3a-46fb-a2f8-27401256548d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GPU Particles">
+      <UniqueIdentifier>{dd89b5e4-5b28-4457-b480-479d3ca0c78b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -89,6 +92,12 @@
     </ClCompile>
     <ClCompile Include="src\Particle.cpp">
       <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GPUParticle.cpp">
+      <Filter>GPU Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GPUEmitter.cpp">
+      <Filter>GPU Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +167,12 @@
     <ClInclude Include="src\Particle.h">
       <Filter>Particles</Filter>
     </ClInclude>
+    <ClInclude Include="src\GPUParticle.h">
+      <Filter>GPU Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GPUEmitter.h">
+      <Filter>GPU Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shaders\LightingVertex.glsl">
@@ -182,5 +197,9 @@
     <None Include="data\Shaders\ParticleFragment.glsl">
       <Filter>Particles</Filter>
     </None>
+    <None Include="data\Shaders\gpu_particle_vert.glsl" />
+    <None Include="data\Shaders\gpu_particle_geom.glsl" />
+    <None Include="data\Shaders\gpu_particle_frag.glsl" />
+    <None Include="data\Shaders\particle_update_vert.glsl" />
   </ItemGroup>
 </Project>

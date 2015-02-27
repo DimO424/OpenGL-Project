@@ -5,10 +5,11 @@
 #include "Lighting.h"
 #include "Animation.h"
 #include "Particle.h"
+#include "GPUParticle.h"
 
 int main()
 {
-	Particles application;
+	GPUParticles application;
 
 	if (application.Startup() == false)
 	{
