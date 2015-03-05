@@ -136,6 +136,7 @@
   <ItemGroup>
     <None Include="data\Shaders\gpu_particle_frag.glsl" />
     <None Include="data\Shaders\gpu_particle_geom.glsl" />
+    <None Include="data\Shaders\gpu_particle_update_vert.glsl" />
     <None Include="data\Shaders\gpu_particle_vert.glsl" />
     <None Include="data\Shaders\LightingFragment.glsl" />
     <None Include="data\Shaders\LightingVertex.glsl" />

@@ -7,13 +7,12 @@
 //gpu particle struct
 struct GPUParticle
 {
-	GPUParticle() : lifespan(0), lifetime(1) {}
+	GPUParticle() : position(vec3(0)), velocity(vec3(0)), lifespan(0), lifetime(1) {}
 	vec3 position;
 	vec3 velocity;
 	float lifetime;
 	float lifespan;
 };
-
 
 //gpu emitter class
 	//creating gpu buffers
@@ -62,11 +61,12 @@ public:
 	unsigned int m_active_buffer;
 	unsigned int m_VAO[2];
 	unsigned int m_VBO[2];
-
 	unsigned int m_update_shader;
 	unsigned int m_draw_shader;
-
 	float m_last_draw_time;
+
+	//General data
+	float m_emit_rate_multiplier;
 };
 
 #endif

@@ -201,5 +201,6 @@
     <None Include="data\Shaders\gpu_particle_geom.glsl" />
     <None Include="data\Shaders\gpu_particle_frag.glsl" />
     <None Include="data\Shaders\particle_update_vert.glsl" />
+    <None Include="data\Shaders\gpu_particle_update_vert.glsl" />
   </ItemGroup>
 </Project>

@@ -18,24 +18,24 @@ bool GPUParticles::Startup()
 	m_Camera.m_fSensitivity = 3;
 
 	m_emitter.Init(10000,
-		vec4(0, 0, 0, 0),
-		0,
-		5,
-		5,
-		0.8f,
+		vec4(0, 1, 0, 1),
+		150.0f,
+		0.5f,
+		4.0f,
+		0.7f,
+		2.0f,
 		1.0f,
-		1,
 		0.01f,
-		vec4(1, 0, 0, 1),
+		vec4(0.2f, 0.4f, 1.0f, 1),
 		vec4(1, 0.4f, 0, 1));
 
 	m_time = 0;
-
 	return true;
 }
 
 void GPUParticles::Shutdown()
 {
+	//Now clean up
 	Gizmos::destroy();
 	Application::Shutdown();
 }

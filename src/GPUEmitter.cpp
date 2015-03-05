@@ -2,7 +2,10 @@
 #include "Utility.h"
 
 GPUPointEmitter::GPUPointEmitter() :
-m_particles(nullptr), m_max_particles(0), m_position(0),
+m_particles(nullptr), m_max_particles(0), m_position(0), m_emit_rate(0),
+m_emit_timer(0), m_lifespan_min(0), m_lifespan_max(0), m_velocity_min(0),
+m_velocity_max(0), m_start_size(0), m_end_size(0), m_start_color(0),
+m_end_color(0), m_print_timer(0), m_emit_rate_multiplier(0.02),
 m_draw_shader(0), m_update_shader(0), m_last_draw_time(0)
 {
 	m_VAO[0] = 0;
@@ -15,7 +18,9 @@ GPUPointEmitter::~GPUPointEmitter()
 {
 	delete[] m_particles;
 	glDeleteVertexArrays(2, m_VAO);
-	glDeleteBuffers(2, m_VBO);
+	glDeleteVertexArrays(2, m_VBO);
+	// glDeleteBuffers(2, m_VAO);
+	// glDeleteBuffers(2, m_VBO);
 
 	//delete the shaders
 	glDeleteProgram(m_update_shader);
@@ -44,7 +49,6 @@ void GPUPointEmitter::Init(unsigned int a_max_particles, vec4 a_position, float 
 	CreateBuffer();
 	CreatUpdateShader();
 	CreateDrawShader();
-
 }
 
 void GPUPointEmitter::CreateBuffer()
@@ -69,22 +73,23 @@ void GPUPointEmitter::CreateBuffer()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 			sizeof(GPUParticle), 0);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
-			sizeof(GPUParticle), ((char*)0) + 12);
+			sizeof(GPUParticle), (void*) + (12));
 		glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE,
-			sizeof(GPUParticle), ((char*)0) + 24);
+			sizeof(GPUParticle), (void*) + (24));
 		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE,
-			sizeof(GPUParticle), ((char*)0) + 28);
+			sizeof(GPUParticle), (void*) + (28));
 	}
 
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void GPUPointEmitter::CreatUpdateShader()
 {
-	// create a shader
+	//Create a shader
 	unsigned int vertex_shader;
-	LoadShaderType("./Shaders/particle_update_vert.glsl", GL_VERTEX_SHADER, &vertex_shader);
+	LoadShaderType("./Shaders/gpu_particle_update_vert.glsl",
+				GL_VERTEX_SHADER, &vertex_shader);
 
 	m_update_shader = glCreateProgram();
 	glAttachShader(m_update_shader, vertex_shader);
@@ -92,14 +97,12 @@ void GPUPointEmitter::CreatUpdateShader()
 	const char* outputs[4] = {"updated_postion", "updated_velocity",
 							  "updated_lifetime", "updated_lifespan"};
 
-	// specify the data that we will stream back
+	//Specify the data that we will stream back
 	glTransformFeedbackVaryings(m_update_shader, 4, outputs, GL_INTERLEAVED_ATTRIBS);
-
 	glLinkProgram(m_update_shader);
 
-	// remove unneeded handles
+	//Remove unneeded handles
 	glDeleteShader(vertex_shader);
-
 }
 
 void GPUPointEmitter::CreateDrawShader()
@@ -114,21 +117,30 @@ void GPUPointEmitter::Draw(float a_current_time,
 	mat4 a_camera_transform,
 	mat4 a_projection_view)
 {
-	// uniform float delta_time;
-	// 
-	// uniform vec3 emitter_position;
-	// 
-	// uniform float min_velocity;
-	// uniform float max_velocity;
-	// uniform float min_lifespan;
-	// uniform float max_lifespan;
-	// 
-	// uniform float time;
+	//Debug info for FPS and Particle Count
+	float fDt = a_current_time - m_last_draw_time;
+	m_print_timer += fDt;
+
+	if (m_print_timer > 1.0f)
+	{
+		printf("FPS: %f. Particles: %d.\n", 1 / fDt, m_max_particles);
+		m_print_timer = 0.0f;
+	}
+
+	//glPointSize(100);
 
 	//Update vertex pass
 	glUseProgram(m_update_shader);
 
-	unsigned int delta_uniform = 
+	//uniform float time;
+	//uniform float delta_time;
+	//uniform float min_velocity;
+	//uniform float max_velocity;
+	//uniform float min_lifespan;
+	//uniform float max_lifespan;
+	//uniform vec3 emitter_position;
+
+	int delta_uniform = 
 		glGetUniformLocation(m_update_shader, "delta_time");
 	unsigned int emitter_position_uniform = 
 		glGetUniformLocation(m_update_shader, "emitter_position");
@@ -143,8 +155,7 @@ void GPUPointEmitter::Draw(float a_current_time,
 	unsigned int time_uniform = 
 		glGetUniformLocation(m_update_shader, "time");
 
-	glUniform1f(delta_uniform, a_current_time - m_last_draw_time);
-
+	glUniform1f(delta_uniform, fDt);
 	glUniform3fv(emitter_position_uniform, 1, (float*)&m_position);
 	glUniform1f(min_velocity_uniform, m_velocity_min);
 	glUniform1f(max_velocity_uniform, m_velocity_max);
@@ -157,9 +168,7 @@ void GPUPointEmitter::Draw(float a_current_time,
 	glBindVertexArray(m_VAO[m_active_buffer]);
 
 	unsigned int other_buffer = (m_active_buffer + 1) % 2;
-
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, m_VBO[other_buffer]);
-
 	glBeginTransformFeedback(GL_POINTS);
 
 	glDrawArrays(GL_POINTS, 0, m_max_particles);
@@ -194,10 +203,8 @@ void GPUPointEmitter::Draw(float a_current_time,
 	glUniform4fv(end_color_uniform, 1, (float*)&m_end_color);
 	
 	glBindVertexArray(m_VAO[other_buffer]);
-	glDrawArrays(GL_POINTS, 0,m_max_particles);
-
+	glDrawArrays(GL_POINTS, 0, m_max_particles);
 	m_active_buffer = other_buffer;
-
 	m_last_draw_time = a_current_time;
 }
 
