@@ -6,10 +6,11 @@
 #include "Animation.h"
 #include "Particle.h"
 #include "GPUParticle.h"
+#include "SceneManagement.h"
 
 int main()
 {
-	GPUParticles application;
+	RenderingGeometry application;
 
 	if (application.Startup() == false)
 	{

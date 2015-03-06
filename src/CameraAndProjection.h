@@ -9,7 +9,6 @@ class CameraAndProjection : public Application
 public:
 	virtual bool Startup();
 	virtual void Shutdown();
-
 	virtual bool Update();
 	virtual void Draw();
 

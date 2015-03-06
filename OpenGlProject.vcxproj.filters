@@ -37,6 +37,9 @@
     <Filter Include="GPU Particles">
       <UniqueIdentifier>{dd89b5e4-5b28-4457-b480-479d3ca0c78b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene Management">
+      <UniqueIdentifier>{6a5026c5-720e-4f46-8d00-bbfb0a96626b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -99,6 +102,9 @@
     <ClCompile Include="src\GPUEmitter.cpp">
       <Filter>GPU Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\SceneManagement.cpp">
+      <Filter>Scene Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gl_core_4_4.h">
@@ -149,9 +155,6 @@
     <ClInclude Include="src\AdvancedTexturing.h">
       <Filter>Header Files\AdvancedTexturing</Filter>
     </ClInclude>
-    <ClInclude Include="deps\AntTweakBar\include\AntTweakBar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Quaternions.h">
       <Filter>Quaternions</Filter>
     </ClInclude>
@@ -172,6 +175,18 @@
     </ClInclude>
     <ClInclude Include="src\GPUEmitter.h">
       <Filter>GPU Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AABB.h">
+      <Filter>Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoundingSphere.h">
+      <Filter>Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneManagement.h">
+      <Filter>Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AntTweakBar.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,5 +217,7 @@
     <None Include="data\Shaders\gpu_particle_frag.glsl" />
     <None Include="data\Shaders\particle_update_vert.glsl" />
     <None Include="data\Shaders\gpu_particle_update_vert.glsl" />
+    <None Include="data\Shaders\basic_fragment.glsl" />
+    <None Include="data\Shaders\basic_vertex.glsl" />
   </ItemGroup>
 </Project>
