@@ -21,7 +21,7 @@ void Camera::UpdateViewProjection()
 
 void Camera::SetPosition(vec3 a_vPos)
 {
-	worldTransform[3] = vec4(a_vPos, 1);
+	worldTransform = glm::translate(a_vPos);
 	viewTransform = glm::inverse(worldTransform);
 	UpdateViewProjection();
 }
@@ -29,7 +29,6 @@ void Camera::SetPosition(vec3 a_vPos)
 void Camera::SetPerspective(float a_fFieldOfView, float a_fAspectRatio, float a_fnear, float a_fFar)
 {
 	projectionTransform = glm::perspective(a_fFieldOfView, a_fAspectRatio, a_fnear, a_fFar);
-	UpdateViewProjection();
 }
 
 void Camera::SetLookAt(vec3 a_vPosition, vec3 a_vCenter, vec3 a_vUp)

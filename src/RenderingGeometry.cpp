@@ -26,12 +26,12 @@ bool RenderingGeometry::Startup()
 
 	LoadShader("./Shaders/basic_vertex.glsl", nullptr, "./Shaders/basic_fragment.glsl", &m_programID);
 
-	GenerateShader();
-	GenerateGrid(20, 20);
+	// GenerateShader();
+	GenerateGrid(10, 10);
 
 	Gizmos::create();
 
-	m_camera = FlyCamera(60.0f, 10.0f);
+	m_camera = FlyCamera(1280.0f / 720.0f, 10.0f);
 	m_camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_camera.m_fSensitivity = 3;
 
@@ -109,11 +109,12 @@ void RenderingGeometry::Draw()
 	//Uncomment the following to make it just draw the triangles unfilled
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Application::Draw();
 	Gizmos::draw(m_camera.projectionTransform, m_camera.viewTransform);
 	glfwSwapBuffers(this->m_pWindow);
 	glfwPollEvents();
-	Gizmos::clear();
+
+	Application::Draw();
+
 }
 
 void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
@@ -130,7 +131,7 @@ void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
 		{
 			vertex_array[c + (r * (a_cols + 1))].position = vec4((float)c, 0, (float)r, 1);
 			vertex_array[c + (r * (a_cols + 1))].color = vec4((float)c / (a_cols + 1), 0,
-															(float)r / (a_rows + 1), 1);
+															  (float)r / (a_rows + 1), 1);
 		}
 	}
 

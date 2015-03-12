@@ -44,7 +44,7 @@ bool SceneManagement::Startup()
 	m_drawGizmos = true;
 
 	//Now initialise the FlyCamera
-	m_camera = FlyCamera(60.0f, 10.0f);
+	m_camera = FlyCamera(1280.f/720.f, 10.0f);
 	m_camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_camera.m_fSensitivity = 3;
 
@@ -178,7 +178,7 @@ bool SceneManagement::Update()
 
 void SceneManagement::Draw()
 {
-	Application::Draw();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (m_drawGizmos)
 	{
@@ -186,7 +186,9 @@ void SceneManagement::Draw()
 	}
 	
 	TwDraw();
-	glfwSwapBuffers(this->m_pWindow);
+	Application::Draw();
+
+	glfwSwapBuffers(m_pWindow);
 	glfwPollEvents();
 }
 

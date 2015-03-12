@@ -13,6 +13,8 @@ public:
 	virtual void Draw();
 
 	FlyCamera m_Camera;
+
+	float m_timer;
 };
 
 #endif

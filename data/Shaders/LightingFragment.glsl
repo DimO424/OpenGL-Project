@@ -7,7 +7,6 @@ out vec4 frag_color;
 
 uniform vec3 light_dir;
 uniform vec3 light_color;
-
 uniform vec3 material_color;
 uniform vec3 ambient_light;
 
@@ -27,7 +26,7 @@ void main()
 	vec3 E = normalize(eye_pos - frag_position.xyz);
 	vec3 R = reflect(L, N);
 
-	float s = max(0, dot(R, E));
+	float s = max(0.0, dot(R, E));
 	s = pow(s, specular_power);
 	vec3 specular = vec3(s) * light_color * material_color;
 

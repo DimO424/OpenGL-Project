@@ -42,6 +42,8 @@ bool Application::Startup()
 	printf("Successfully loaded OpenGL version %d.%d \n",
 		major_version, minor_version);
 
+	glfwSwapInterval(1);
+
 	return true;
 }
 
@@ -63,6 +65,5 @@ bool Application::Update()
 
 void Application::Draw()
 {
-	glfwSwapBuffers(m_pWindow);
-	glfwPollEvents();
+
 }

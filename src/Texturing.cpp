@@ -32,7 +32,7 @@ bool Texturing::Startup()
 	GenerateQuad(5.0f);
 	
 
-	m_camera = FlyCamera(60.0f, 10.0f);
+	m_camera = FlyCamera(1280.0f / 720.0f, 10.0f);
 	m_camera.SetLookAt(vec3(10, 10, 10), vec3(0), vec3(0, 1, 0));
 	m_camera.m_fSensitivity = 3;
 
