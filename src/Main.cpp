@@ -7,10 +7,12 @@
 #include "Particle.h"
 #include "GPUParticle.h"
 #include "SceneManagement.h"
+#include "RenderTargets.h"
+#include "PostProcess.h"
 
 int main()
 {
-	RenderingGeometry application;
+	PostProcess application;
 
 	if (application.Startup() == false)
 	{

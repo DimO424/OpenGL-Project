@@ -40,6 +40,12 @@
     <Filter Include="Scene Management">
       <UniqueIdentifier>{6a5026c5-720e-4f46-8d00-bbfb0a96626b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render Targets">
+      <UniqueIdentifier>{90bd818b-404e-4d2a-804a-c558c65ce8d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Post Process">
+      <UniqueIdentifier>{3afd0e0e-83fa-41f5-b839-cd816fe9d6d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="src\SceneManagement.cpp">
       <Filter>Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderTargets.cpp">
+      <Filter>Render Targets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PostProcess.cpp">
+      <Filter>Post Process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="src\AntTweakBar.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderTargets.h">
+      <Filter>Render Targets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PostProcess.h">
+      <Filter>Post Process</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
