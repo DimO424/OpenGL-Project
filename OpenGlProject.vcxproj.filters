@@ -46,6 +46,9 @@
     <Filter Include="Post Process">
       <UniqueIdentifier>{3afd0e0e-83fa-41f5-b839-cd816fe9d6d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shadows">
+      <UniqueIdentifier>{28dd3a40-9ea7-4183-946a-2baa07d5cd40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="src\PostProcess.cpp">
       <Filter>Post Process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shadows.cpp">
+      <Filter>Shadows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +212,9 @@
     <ClInclude Include="src\PostProcess.h">
       <Filter>Post Process</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shadows.h">
+      <Filter>Shadows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shaders\LightingVertex.glsl">
@@ -237,5 +246,11 @@
     <None Include="data\Shaders\gpu_particle_update_vert.glsl" />
     <None Include="data\Shaders\basic_fragment.glsl" />
     <None Include="data\Shaders\basic_vertex.glsl" />
+    <None Include="data\Shaders\post_vertex.glsl" />
+    <None Include="data\Shaders\post_fragment.glsl" />
+    <None Include="data\Shaders\diffuse_shadowed_fragment.glsl" />
+    <None Include="data\Shaders\diffuse_shadowed_vertex.glsl" />
+    <None Include="data\Shaders\shadowmap_vertex.glsl" />
+    <None Include="data\Shaders\shadowmap_fragment.glsl" />
   </ItemGroup>
 </Project>

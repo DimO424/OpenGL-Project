@@ -9,10 +9,11 @@
 #include "SceneManagement.h"
 #include "RenderTargets.h"
 #include "PostProcess.h"
+#include "Shadows.h"
 
 int main()
 {
-	PostProcess application;
+	Shadows application;
 
 	if (application.Startup() == false)
 	{
