@@ -10,10 +10,11 @@
 #include "RenderTargets.h"
 #include "PostProcess.h"
 #include "Shadows.h"
+#include "DefferedRendering.h"
 
 int main()
 {
-	Shadows application;
+	DefferedRendering application;
 
 	if (application.Startup() == false)
 	{

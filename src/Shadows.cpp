@@ -191,8 +191,10 @@ void Shadows::Draw()
 		glGetUniformLocation(m_shadowmap_program_id, "light_matrix");
 
 	vec3 light_dir = glm::normalize(vec3(-1, -2.5f, -1));
+	// light_dir = (glm::rotate(0.01f, ));
 
-	mat4 light_proj = glm::ortho(-10, 10, -10, 10, -10, 100);
+	mat4 light_proj = glm::ortho<float>(-15.0f, 15.0f, -15.0f, 15.0f, -10, 100);
+
 	mat4 light_view = glm::lookAt(-light_dir, vec3(0), vec3(0, 1, 0));
 
 	mat4 light_matrix = light_proj * light_view;

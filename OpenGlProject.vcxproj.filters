@@ -49,6 +49,9 @@
     <Filter Include="Shadows">
       <UniqueIdentifier>{28dd3a40-9ea7-4183-946a-2baa07d5cd40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Deffered Rendering">
+      <UniqueIdentifier>{b3fd8923-9d35-40ce-b4ac-bed543984f99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="src\Shadows.cpp">
       <Filter>Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefferedRendering.cpp">
+      <Filter>Deffered Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +221,9 @@
     <ClInclude Include="src\Shadows.h">
       <Filter>Shadows</Filter>
     </ClInclude>
+    <ClInclude Include="src\DefferedRendering.h">
+      <Filter>Deffered Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shaders\LightingVertex.glsl">
@@ -252,5 +261,10 @@
     <None Include="data\Shaders\diffuse_shadowed_vertex.glsl" />
     <None Include="data\Shaders\shadowmap_vertex.glsl" />
     <None Include="data\Shaders\shadowmap_fragment.glsl" />
+    <None Include="data\Shaders\gbuffer_vertex.glsl" />
+    <None Include="data\Shaders\gbuffer_fragment.glsl" />
+    <None Include="data\Shaders\composite_vertex.glsl" />
+    <None Include="data\Shaders\composite_fragment.glsl" />
+    <None Include="data\Shaders\directional_light_fragment.glsl" />
   </ItemGroup>
 </Project>
