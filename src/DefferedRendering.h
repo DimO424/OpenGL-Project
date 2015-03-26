@@ -15,12 +15,15 @@ public:
 
 	void BuildMeshes();
 	void BuildQuad();
+	void BuildCube();
 	void BuildGBuffer();
 	void BuildLightBuffer();
 
 	void RenderDirectionalLight(vec3 light_dir, vec3 light_color);
+	void RenderPointLight(vec3 position, float radius, vec3 diffuse);
 
 	//Load up a mesh
+	OpenGLData m_light_cube;
 	OpenGLData m_bunny;
 	OpenGLData m_screenspace_quad;
 

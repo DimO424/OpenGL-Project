@@ -21,5 +21,6 @@ void main()
 	// vec3 N = normalize(normal_sample);
 	float d = max(0, dot(-light_dir, normal_sample));
 
-	out_color = light_col * d;
+	 out_color = light_col * d;
+	//out_color = vec3(1, 1, 1);
 }

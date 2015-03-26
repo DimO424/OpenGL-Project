@@ -21,6 +21,7 @@ bool DefferedRendering::Startup()
 
 	BuildMeshes();
 	BuildQuad();
+	BuildCube();
 	BuildGBuffer();
 	BuildLightBuffer();
 
@@ -32,6 +33,9 @@ bool DefferedRendering::Startup()
 
 	LoadShader("./Shaders/composite_vertex.glsl", 0,
 		"./Shaders/directional_light_fragment.glsl", &m_directional_light_program_id);
+
+	LoadShader("./Shaders/point_light_vertex.glsl", 0,
+		"./Shaders/point_light_fragment.glsl", &m_point_light_program_id);
 
 	return true;
 }
@@ -52,7 +56,7 @@ void DefferedRendering::BuildGBuffer()
 
 	glGenTextures(1, &m_position_texture);
 	glBindTexture(GL_TEXTURE_2D, m_position_texture);
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, 1280, 720);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB32F, 1280, 720);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -93,15 +97,16 @@ void DefferedRendering::BuildQuad()
 
 	float vertex_data[]
 	{
-		-1, -1, 0, 1, half_texel.x, half_texel.y,
-			-1, 1, 0, 1, half_texel.x, 1.0f - half_texel.y,
-			1, 1, 0, 1, 1.0f - half_texel.x, 1.0f - half_texel.y,
-			1, -1, 0, 1, 1.0f - half_texel.x, half_texel.y,
+		-1, -1, 0, 1,		 half_texel.x,		  half_texel.y,
+		-1,  1, 0, 1,		 half_texel.x, 1.0f - half_texel.y,
+		 1,  1, 0, 1, 1.0f - half_texel.x, 1.0f - half_texel.y,
+		 1, -1, 0, 1, 1.0f - half_texel.x,		  half_texel.y,
 	};
 
 	unsigned int index_data[] =
 	{
-		0, 1, 2, 0, 2, 3
+		0, 1, 2, 
+		0, 2, 3
 	};
 
 	m_screenspace_quad.m_indexCount = 6;
@@ -130,6 +135,62 @@ void DefferedRendering::BuildQuad()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
+void DefferedRendering::BuildCube()
+{
+	float vertex_data[]
+	{
+		//Bottom 4 points
+		-1, -1,  1,  1,
+		 1, -1,  1,  1,
+		 1, -1, -1,  1,
+		-1, -1, -1,  1,
+
+		//Top 4 points
+		-1,  1,  1,  1,
+		 1,  1,  1,  1,
+		 1,  1, -1,  1,
+		-1,  1, -1,  1,
+	};
+
+	unsigned int index_data[] =
+	{
+		4, 5, 0,
+		5, 1, 0,
+		5, 6, 1,
+		6, 2, 1,
+		6, 7, 2,
+		7, 3, 2,
+		7, 4, 3,
+		4, 0, 3,
+		7, 6, 4,
+		6, 5, 4,
+		0, 1, 3,
+		1, 2, 3
+	};
+
+	m_light_cube.m_indexCount = 36;
+
+	glGenVertexArrays(1, &m_light_cube.m_VAO);
+	glBindVertexArray(m_light_cube.m_VAO);
+
+	glGenBuffers(1, &m_light_cube.m_VBO);
+	glGenBuffers(1, &m_light_cube.m_IBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_light_cube.m_VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_light_cube.m_IBO);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index_data), index_data, GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0); //Position
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float)* 4, 0);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
 void DefferedRendering::BuildLightBuffer()
 {
 	//Create fbo
@@ -137,6 +198,7 @@ void DefferedRendering::BuildLightBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, m_light_fbo);
 
 	//Create textures
+
 	//Light textures
 	glGenTextures(1, &m_light_texture);
 	glBindTexture(GL_TEXTURE_2D, m_light_texture);
@@ -264,6 +326,28 @@ void DefferedRendering::RenderDirectionalLight(vec3 light_dir, vec3 light_color)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+void DefferedRendering::RenderPointLight(vec3 position, float radius, vec3 diffuse)
+{
+	vec4 view_space_pos = m_Camera.viewTransform * vec4(position, 1);
+
+	int pos_uniform =
+		glGetUniformLocation(m_point_light_program_id, "lightPosition");
+	int view_pos_uniform =
+		glGetUniformLocation(m_point_light_program_id, "light_view_position");
+	int light_diffuse_uniform =
+		glGetUniformLocation(m_point_light_program_id, "light_diffuse");
+	int light_radius_uniform =
+		glGetUniformLocation(m_point_light_program_id, "light_radius");
+
+	glUniform3fv(pos_uniform, 1, (float*)&position);
+	glUniform3fv(view_pos_uniform, 1, (float*)&(vec3)view_space_pos);
+	glUniform3fv(light_diffuse_uniform, 1, (float*)&diffuse);
+	glUniform1f(light_radius_uniform, radius);
+
+	glBindVertexArray(m_light_cube.m_VAO);
+	glDrawElements(GL_TRIANGLES, m_light_cube.m_indexCount, GL_UNSIGNED_INT, 0);
+}
+
 void DefferedRendering::Draw()
 {
 	//////////////////////
@@ -327,6 +411,33 @@ void DefferedRendering::Draw()
 	RenderDirectionalLight(vec3(0, 1, 0), vec3(0, 1, 0));
 	RenderDirectionalLight(vec3(0, 0, 1), vec3(0, 0, 1));
 
+	glUseProgram(m_point_light_program_id);
+
+	view_projection_uniform =
+		glGetUniformLocation(m_point_light_program_id, "proj_view");
+
+	position_tex_uniform = 
+		glGetUniformLocation(m_point_light_program_id, "position_texture");
+
+	normals_tex_uniform =
+		glGetUniformLocation(m_point_light_program_id, "normal_texture");
+
+	glUniformMatrix4fv(view_projection_uniform, 1, GL_FALSE, (float*)&m_Camera.view_Projection);
+
+	glUniform1i(position_tex_uniform, 0);
+	glUniform1i(normals_tex_uniform, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_position_texture);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_normals_texture);
+
+	//Draw the point lights
+	RenderPointLight(vec3(0, 10, 0), 20, vec3(1, 1, 0));
+	RenderPointLight(vec3(10, 0, 0), 20, vec3(1, 1, 1));
+	RenderPointLight(vec3(0, 0, 10), 20, vec3(0, 1, 0));
+
 	glDisable(GL_BLEND);
 
 	//////////////////////
@@ -357,7 +468,7 @@ void DefferedRendering::Draw()
 	glBindVertexArray(m_screenspace_quad.m_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-	//Gizmos::draw(m_Camera.projectionTransform, m_Camera.viewTransform);
+	// Gizmos::draw(m_Camera.projectionTransform, m_Camera.viewTransform);
 
 	glfwSwapBuffers(this -> m_pWindow);
 	glfwPollEvents();

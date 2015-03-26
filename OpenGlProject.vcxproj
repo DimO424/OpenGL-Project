@@ -164,6 +164,8 @@
     <None Include="data\Shaders\ParticleFragment.glsl" />
     <None Include="data\Shaders\ParticleVertex.glsl" />
     <None Include="data\Shaders\particle_update_vert.glsl" />
+    <None Include="data\Shaders\point_light_fragment.glsl" />
+    <None Include="data\Shaders\point_light_vertex.glsl" />
     <None Include="data\Shaders\post_fragment.glsl" />
     <None Include="data\Shaders\post_vertex.glsl" />
     <None Include="data\Shaders\RenderingGeometryFragment.glsl" />
