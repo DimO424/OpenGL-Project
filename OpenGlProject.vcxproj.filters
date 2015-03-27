@@ -52,6 +52,9 @@
     <Filter Include="Deffered Rendering">
       <UniqueIdentifier>{b3fd8923-9d35-40ce-b4ac-bed543984f99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Procedural Generation">
+      <UniqueIdentifier>{367a2390-a401-4a02-9c99-d0efd193a8a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\gl_core_4_4.c">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="src\DefferedRendering.cpp">
       <Filter>Deffered Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProceduralGeneration.cpp">
+      <Filter>Procedural Generation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +230,9 @@
     <ClInclude Include="src\DefferedRendering.h">
       <Filter>Deffered Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\ProceduralGeneration.h">
+      <Filter>Procedural Generation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shaders\LightingVertex.glsl">
@@ -268,5 +277,7 @@
     <None Include="data\Shaders\directional_light_fragment.glsl" />
     <None Include="data\Shaders\point_light_vertex.glsl" />
     <None Include="data\Shaders\point_light_fragment.glsl" />
+    <None Include="data\Shaders\perlin_vertex.glsl" />
+    <None Include="data\Shaders\perlin_fragment.glsl" />
   </ItemGroup>
 </Project>

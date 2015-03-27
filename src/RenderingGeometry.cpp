@@ -22,11 +22,8 @@ bool RenderingGeometry::Startup()
 		return false;
 	}
 
-	glfwSetTime(0.0f);
-
-	LoadShader("./Shaders/basic_vertex.glsl", nullptr, "./Shaders/basic_fragment.glsl", &m_programID);
-
-	// GenerateShader();
+	LoadShader("./Shaders/basic_vertex.glsl", 0,
+			"./Shaders/basic_fragment.glsl", &m_programID);
 	GenerateGrid(10, 10);
 
 	Gizmos::create();
@@ -38,6 +35,9 @@ bool RenderingGeometry::Startup()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
+	glEnable(GL_CULL_FACE);
+
+	m_timer = 0;
 	return true;
 }
 
@@ -55,6 +55,17 @@ bool RenderingGeometry::Update()
 	{
 		return false;
 	}
+	Gizmos::clear();
+
+	vec4 white(1);
+	vec4 black(0, 0, 0, 1);
+	for (int i = 0; i <= 20; ++i)
+	{
+		Gizmos::addLine(vec3(-10 + i, -0.01, -10), vec3(-10 + i, -0.01, 10),
+			i == 10 ? white : black);
+		Gizmos::addLine(vec3(-10, -0.01, -10 + i), vec3(10, -0.01, -10 + i),
+			i == 10 ? white : black);
+	}
 
 	float dT = (float)glfwGetTime();
 	glfwSetTime(0.0f);
@@ -67,17 +78,6 @@ bool RenderingGeometry::Update()
 	
 	//m_view = glm::lookAt(vec3(m_camera_x, 10, m_camera_z), vec3(0, 0, 0), vec3(0, 1, 0));
 
-	vec4 white(1);
-	vec4 black(0, 0, 0, 1);
-
-	for (unsigned int i = 0; i <= 20; ++i)
-	{
-		Gizmos::addLine(vec3(-10 + i, 0.01f, -10), vec3(-10 + i, -0.01f, 10),
-			i == 10 ? white : black);
-		Gizmos::addLine(vec3(-10, -0.01f, -10 + i), vec3(10, -0.01f, -10 + i),
-			i == 10 ? white : black);
-	}
-
 	m_camera.Update(dT);
 
 	return true;
@@ -86,13 +86,14 @@ bool RenderingGeometry::Update()
 void RenderingGeometry::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	glUseProgram(m_programID);
 	
-	int projection_view_handle = glGetUniformLocation(m_programID, "projection_View");
+	int projection_view_handle = glGetUniformLocation(m_programID, "projection_view");
 
 	if (projection_view_handle >= 0)
 	{
-		glUniformMatrix4fv(projection_view_handle, 1, false, (float*)&(m_camera.projectionTransform, m_camera.viewTransform));
+		glUniformMatrix4fv(projection_view_handle, 1, false, (float*)&(m_camera.view_Projection));
 	}
 
 	int	timerHandle = glGetUniformLocation(m_programID, "timer");
@@ -103,13 +104,14 @@ void RenderingGeometry::Draw()
 	}
 
 	glBindVertexArray(m_VAO);
-	unsigned int indexCount = (m_rows)* (m_cols)* 6;
+
 	glDrawElements(GL_TRIANGLES, m_index_count, GL_UNSIGNED_INT, 0);
 
 	//Uncomment the following to make it just draw the triangles unfilled
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	Gizmos::draw(m_camera.projectionTransform, m_camera.viewTransform);
+	Gizmos::draw(m_camera.view_Projection);
+
 	glfwSwapBuffers(this->m_pWindow);
 	glfwPollEvents();
 
@@ -119,9 +121,6 @@ void RenderingGeometry::Draw()
 
 void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
 {
-	m_rows = a_rows;
-	m_cols = a_cols;
-
 	//Sets up Vertexes
 	Vertex* vertex_array = new Vertex[(a_rows + 1) * (a_cols + 1)];
 
@@ -129,11 +128,15 @@ void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
 	{
 		for (unsigned int c = 0; c < a_cols + 1; ++c)
 		{
-			vertex_array[c + (r * (a_cols + 1))].position = vec4((float)c, 0, (float)r, 1);
-			vertex_array[c + (r * (a_cols + 1))].color = vec4((float)c / (a_cols + 1), 0,
-															  (float)r / (a_rows + 1), 1);
+			vec4 pos = vec4((float)c, 0, (float)r, 1);
+			vertex_array[c + r * (a_cols + 1)].position = pos;
+
+			vec4 color = vec4((float)c / (a_cols + 1), 0, (float)r / (a_rows + 1), 1);
+			vertex_array[c + r * (a_cols + 1)].color = color;
 		}
 	}
+
+	m_index_count = a_rows * a_cols * 6;
 
 	//Sets up Indicies
 	unsigned int* index_array = new unsigned int[a_rows * a_cols * 6];
@@ -156,8 +159,6 @@ void RenderingGeometry::GenerateGrid(unsigned int a_rows, unsigned int a_cols)
 			index_location += 6;
 		}
 	}
-
-	m_index_count = a_rows * a_cols * 6;
 
 	glGenBuffers(1, &m_VBO);
 	glGenBuffers(1, &m_IBO);

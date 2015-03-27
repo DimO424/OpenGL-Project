@@ -1,16 +1,18 @@
 #version 410
-layout(location = 0) in vec4 position;
-layout(location = 1) in vec4 colour;
 
-out vec4 out_colour;
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec4 color;
+
+out vec4 out_color;
+
 uniform mat4 projection_view;
-uniform float time;
+uniform float timer;
 
 void main()
 {
-	out_colour = colour;
+	out_color = color;
 	vec4 pos = position;
-	pos.y += sin(time + pos.x) * 0.5f;
+	pos.y = sin(pos.x + timer) * sin(pos.z + timer);
 
 	gl_Position = projection_view * pos;
-};
+}
