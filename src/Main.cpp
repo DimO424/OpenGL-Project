@@ -12,10 +12,11 @@
 #include "Shadows.h"
 #include "DefferedRendering.h"
 #include "ProceduralGeneration.h"
+#include "AdvancedNavigation.h"
 
 int main()
 {
-	ProceduralGeneration application;
+	Lighting application;
 
 	if (application.Startup() == false)
 	{

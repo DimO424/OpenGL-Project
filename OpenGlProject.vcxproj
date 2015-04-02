@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AdvancedNavigation.cpp" />
     <ClCompile Include="src\AdvancedTexturing.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -116,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="deps\FBXLoader\FBXFile.h" />
     <ClInclude Include="src\AABB.h" />
+    <ClInclude Include="src\AdvancedNavigation.h" />
     <ClInclude Include="src\AdvancedTexturing.h" />
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\AntTweakBar.h" />

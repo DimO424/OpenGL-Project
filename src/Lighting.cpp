@@ -31,12 +31,12 @@ bool Lighting::Startup()
 
 	CreateOpenGlBuffers(shapes);
 
-	m_ambient_light = vec3(0.1f);
+	m_ambient_light = vec3(0.1f, 0.1f, 0.1f);
 	m_light_dir = vec3(0, -1, 0);
-	m_light_color = vec3(0.6f, 0, 0);
+	m_light_color = vec3(0.1f, 0.50f, 0.7f);
 	m_material_color = vec3(1);
 
-	m_fSpecular_power = 15;
+	m_fSpecular_power = 15.0f;
 
 	return true;
 }
@@ -162,7 +162,7 @@ void Lighting::CreateOpenGlBuffers(std::vector<tinyobj::shape_t>& shapes)
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 		glEnableVertexAttribArray(1); // normal
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0,
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 0,
 				(void*)(sizeof(float)*shapes[shape_index].mesh.positions.size()));
 
 		glBindVertexArray(0);
